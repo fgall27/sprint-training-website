@@ -306,6 +306,37 @@ const reps = hasOtherTraining
   : baseReps;
 
 
+
+const sprintExercises = {
+  shortStart: {
+    name: "Short Acceleration Starts",
+    distance: 10,
+    rest: "90–120 seconds",
+    tip: "Focus on powerful first steps and a gradual rise."
+  },
+
+  acceleration: {
+    name: "Acceleration Sprints",
+    distance: 20,
+    rest: "2–3 minutes",
+    tip: "Build speed smoothly while maintaining good posture."
+  },
+
+  flyingSprint: {
+    name: "Flying Sprints",
+    distance: 10,
+    buildup: 20,
+    rest: "3–5 minutes",
+    tip: "Accelerate gradually, then run fast with relaxed shoulders."
+  },
+
+  fullDash: {
+    name: "40-Yard Dash Practice",
+    distance: 40,
+    rest: "4–5 minutes",
+    tip: "Focus on a consistent start and smooth acceleration."
+  }
+};
      
 const workouts = {
   acceleration: {
@@ -390,6 +421,41 @@ const weeklyProgression = [
   }
 ];
 
+const weeklyWorkoutStructure = [
+  {
+    week: 1,
+    sessions: [
+      ["shortStart", "acceleration"],
+      ["shortStart", "acceleration"],
+      ["flyingSprint"]
+    ]
+  },
+  {
+    week: 2,
+    sessions: [
+      ["shortStart", "acceleration", "fullDash"],
+      ["shortStart", "acceleration"],
+      ["flyingSprint"]
+    ]
+  },
+  {
+    week: 3,
+    sessions: [
+      ["acceleration", "fullDash"],
+      ["shortStart", "acceleration"],
+      ["flyingSprint", "acceleration"]
+    ]
+  },
+  {
+    week: 4,
+    sessions: [
+      ["shortStart", "acceleration"],
+      ["shortStart"],
+      ["flyingSprint"]
+    ]
+  }
+];
+
 
 const equipmentTips = {
   none: "No equipment needed. Use landmarks or measured distances to mark your sprint starts and finishes.",
@@ -434,7 +500,12 @@ html += `
 `;
 
 
+
 for (const week of weeklyProgression) {
+  const weekStructure = weeklyWorkoutStructure.find(
+    (item) => item.week === week.week
+  );
+
   const weeklyReps = Math.max(
     2,
     Math.round(reps * week.multiplier)
@@ -446,37 +517,41 @@ for (const week of weeklyProgression) {
   `;
 
   for (let i = 0; i < days; i++) {
-    const workout = schedule[i];
-
-    
-
-const adjustedDetail = workout.detail.replace(
-  /\d+\s*x\s*/g,
-  (match) => {
-    const originalReps = parseInt(match, 10);
-
-    if (week.week === 4 && originalReps === 2) {
-      return "1 x ";
-    }
-
-    if (originalReps === reps) {
-      return `${weeklyReps} x `;
-    }
-
-    return match;
-  }
-);
-
-
+    const exerciseKeys = weekStructure.sessions[i];
 
     html += `
       <div class="workout">
-        <h4>Session ${i + 1}: ${workout.title}</h4>
-        <p>${adjustedDetail}</p>
-      </div>
+        <h4>Session ${i + 1}</h4>
     `;
+
+    for (const key of exerciseKeys) {
+      const exercise = sprintExercises[key];
+
+      const exerciseReps =
+        key === "fullDash"
+          ? (week.week === 4 ? 1 : 2)
+          : weeklyReps;
+
+      const distanceText = exercise.buildup
+        ? `${exercise.buildup}-yard buildup + ${exercise.distance}-yard flying sprint`
+        : `${exercise.distance}-yard sprint`;
+
+      html += `
+        <p>
+          <strong>${exercise.name}</strong>
+          — ${exerciseReps} x ${distanceText}
+        </p>
+        <p>
+          Rest: ${exercise.rest}.
+          ${exercise.tip}
+        </p>
+      `;
+    }
+
+    html += `</div>`;
   }
 }
+
 
 
       html += `
