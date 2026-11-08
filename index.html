@@ -306,37 +306,61 @@ const reps = hasOtherTraining
   : baseReps;
 
 
-      const workouts = {
-        acceleration: {
-          title: "Acceleration Training",
-          detail: `${reps} x 10 yards, then ${reps} x 20 yards.
-            Use full recovery between sprints.`
-        },
-        speed: {
-          title: "Maximum Speed Training",
-          detail: `${reps} x flying 10 yards with a
-            gradual 20-yard buildup. Rest fully between reps.`
-        },
-        balanced: {
-          title: "40-Yard Dash Development",
-          detail: `${reps} x 10 yards, ${reps} x 20 yards,
-            then 2 x 40 yards. Rest fully between reps.`
-        }
-      };
+     
+const workouts = {
+  acceleration: {
+    title: "Acceleration Training",
+    detail: `${reps} x 10-yard starts (rest 90–120 seconds),
+      then ${reps} x 20-yard accelerations
+      (rest 2–3 minutes).
+      Focus on powerful first steps and gradual
+      body-position changes.`
+  },
+
+  speed: {
+    title: "Maximum Speed Training",
+    detail: `${reps} x flying 10 yards with a
+      gradual 20-yard buildup (rest 3–5 minutes).
+      Focus on relaxed shoulders, upright posture,
+      and smooth, fast strides.`
+  },
+
+  balanced: {
+    title: "40-Yard Dash Development",
+    detail: `${reps} x 10-yard starts (rest 90–120 seconds),
+      ${reps} x 20-yard accelerations (rest 2–3 minutes),
+      then 2 x 40-yard runs (rest 4–5 minutes).
+      Focus on acceleration and maintaining
+      good technique throughout each sprint.`
+  }
+};
+
 
       const schedule = [
         workouts[focus],
-        {
-          title: "Technique and Acceleration",
-          detail: `${reps} x 10-yard starts and
-            ${reps} x 20-yard accelerations.
-            Focus on smooth, powerful movement.`
-        },
-        {
-          title: "Speed Technique",
-          detail: `${reps} x flying 10 yards after a
-            controlled buildup. Stop if technique deteriorates.`
-        }
+        
+{
+  title: "Technique and Acceleration",
+  detail: `${reps} x 10-yard starts
+    (rest 90–120 seconds),
+    then ${reps} x 20-yard accelerations
+    (rest 2–3 minutes).
+    Focus on powerful first steps,
+    controlled forward lean, and
+    smooth acceleration.`
+},
+
+       
+{
+  title: "Speed Technique",
+  detail: `${reps} x flying 10 yards after a
+    gradual 20-yard buildup
+    (rest 3–5 minutes between repetitions).
+    Focus on relaxed shoulders,
+    upright running posture, and
+    smooth, fast strides.
+    Stop if technique deteriorates.`
+}
       ];
       
 const weeklyProgression = [
