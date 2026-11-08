@@ -338,6 +338,34 @@ const reps = hasOtherTraining
             controlled buildup. Stop if technique deteriorates.`
         }
       ];
+      
+const weeklyProgression = [
+  {
+    week: 1,
+    title: "Technique and Foundation",
+    multiplier: 0.75,
+    note: "Start conservatively. Focus on smooth acceleration and consistent technique."
+  },
+  {
+    week: 2,
+    title: "Acceleration Development",
+    multiplier: 1,
+    note: "Maintain good mechanics and allow full recovery between repetitions."
+  },
+  {
+    week: 3,
+    title: "Speed Development",
+    multiplier: 1,
+    note: "Focus on sprint quality rather than adding unnecessary volume."
+  },
+  {
+    week: 4,
+    title: "Recovery and Reassessment",
+    multiplier: 0.5,
+    note: "Reduce training volume. If fully recovered, reassess your 40-yard time."
+  }
+];
+
 
 const equipmentTips = {
   none: "No equipment needed. Use landmarks or measured distances to mark your sprint starts and finishes.",
@@ -382,15 +410,42 @@ html += `
 `;
 
 
-      for (let i = 0; i < days; i++) {
-        const workout = schedule[i];
-        html += `
-          <div class="workout">
-            <h4>Session ${i + 1}: ${workout.title}</h4>
-            <p>${workout.detail}</p>
-          </div>
-        `;
+for (const week of weeklyProgression) {
+  const weeklyReps = Math.max(
+    2,
+    Math.round(reps * week.multiplier)
+  );
+
+  html += `
+    <h3>Week ${week.week}: ${week.title}</h3>
+    <p>${week.note}</p>
+  `;
+
+  for (let i = 0; i < days; i++) {
+    const workout = schedule[i];
+
+    const adjustedDetail = workout.detail.replace(
+      /\d+\s*x\s*/g,
+      (match) => {
+        const originalReps = parseInt(match, 10);
+
+        if (originalReps === reps) {
+          return `${weeklyReps} x `;
+        }
+
+        return match;
       }
+    );
+
+    html += `
+      <div class="workout">
+        <h4>Session ${i + 1}: ${workout.title}</h4>
+        <p>${adjustedDetail}</p>
+      </div>
+    `;
+  }
+}
+
 
       html += `
         <p><strong>Progression:</strong> Begin conservatively.
