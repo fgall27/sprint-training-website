@@ -448,18 +448,26 @@ for (const week of weeklyProgression) {
   for (let i = 0; i < days; i++) {
     const workout = schedule[i];
 
-    const adjustedDetail = workout.detail.replace(
-      /\d+\s*x\s*/g,
-      (match) => {
-        const originalReps = parseInt(match, 10);
+    
 
-        if (originalReps === reps) {
-          return `${weeklyReps} x `;
-        }
+const adjustedDetail = workout.detail.replace(
+  /\d+\s*x\s*/g,
+  (match) => {
+    const originalReps = parseInt(match, 10);
 
-        return match;
-      }
-    );
+    if (week.week === 4 && originalReps === 2) {
+      return "1 x ";
+    }
+
+    if (originalReps === reps) {
+      return `${weeklyReps} x `;
+    }
+
+    return match;
+  }
+);
+
+
 
     html += `
       <div class="workout">
