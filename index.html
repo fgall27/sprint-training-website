@@ -202,7 +202,27 @@
                   Overall 40-yard performance
                 </option>
               </select>
-            </div>
+            </div> 
+            
+<div>
+  <label for="equipment">Available equipment</label>
+  <select id="equipment">
+    <option value="none">No equipment</option>
+    <option value="cones">Cones or markers</option>
+    <option value="gym">Gym and sprint equipment</option>
+  </select>
+</div>
+
+<div>
+  <label for="otherTraining">Other weekly training</label>
+  <select id="otherTraining">
+    <option value="none">No other training</option>
+    <option value="lifting">I also lift weights</option>
+    <option value="sports">I play a sport</option>
+    <option value="both">I lift weights and play sports</option>
+  </select>
+</div>
+
           </div>
 
           <button type="submit" class="btn generate">
@@ -258,18 +278,33 @@
       const days =
         Number(document.getElementById("days").value);
       const focus =
-        document.getElementById("focus").value;
+        document.getElementById("focus").value; 
+      
+const equipment =
+  document.getElementById("equipment").value;
+
+const otherTraining =
+  document.getElementById("otherTraining").value;
+
 
       if (!Number.isFinite(time) || time < 3 || time > 15) {
         alert("Please enter a valid 40-yard dash time.");
         return;
       }
 
-      const reps = {
-        beginner: 3,
-        intermediate: 4,
-        advanced: 5
-      }[experience];
+     
+const baseReps = {
+  beginner: 3,
+  intermediate: 4,
+  advanced: 5
+}[experience];
+
+const hasOtherTraining = otherTraining !== "none";
+
+const reps = hasOtherTraining
+  ? Math.max(2, baseReps - 1)
+  : baseReps;
+
 
       const workouts = {
         acceleration: {
@@ -304,6 +339,24 @@
         }
       ];
 
+const equipmentTips = {
+  none: "No equipment needed. Use landmarks or measured distances to mark your sprint starts and finishes.",
+
+  cones: "Use cones or markers to set up 10-yard, 20-yard, and 40-yard sprint distances. Keep the distances consistent between sessions.",
+
+  gym: "Use cones to mark sprint distances. If you already strength train, coordinate lower-body lifting with sprint sessions and allow adequate recovery."
+};
+
+const trainingTips = {
+  none: "You have no additional training commitments selected. Start with the prescribed sprint sessions and monitor recovery.",
+
+  lifting: "Schedule demanding sprint work before heavy lower-body lifting when performed on the same day. Avoid adding excessive leg volume.",
+
+  sports: "Account for practices and games when scheduling sprint sessions. Reduce sprint volume during demanding sports weeks.",
+
+  both: "Because you lift weights and play sports, prioritize recovery. Avoid stacking additional hard sprint sessions onto an already demanding week."
+};
+
       let html = `
         <h3>Your Starter Sprint Training Plan</h3>
         <p><strong>Current 40-yard time:</strong>
@@ -315,6 +368,19 @@
           accelerations. Allow at least 48 hours between
           demanding sprint sessions.</p>
       `;
+      
+html += `
+  <div class="workout">
+    <h4>Equipment Recommendations</h4>
+    <p>${equipmentTips[equipment]}</p>
+  </div>
+
+  <div class="workout">
+    <h4>Training and Recovery Recommendations</h4>
+    <p>${trainingTips[otherTraining]}</p>
+  </div>
+`;
+
 
       for (let i = 0; i < days; i++) {
         const workout = schedule[i];
