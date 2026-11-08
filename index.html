@@ -1,0 +1,348 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Free sprint training tools and personalized 40-yard dash workout plans.">
+  <title>SprintLab | Train Faster</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: #172033;
+      background: #f5f7fb;
+      line-height: 1.6;
+    }
+    header {
+      background: #101b30;
+      color: white;
+      padding: 18px 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .logo { font-size: 24px; font-weight: 800; }
+    .logo span { color: #58d9ac; }
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 18px;
+      font-size: 14px;
+    }
+    .hero {
+      background: linear-gradient(135deg,#101b30,#24446a);
+      color: white;
+      padding: 75px 20px;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: clamp(32px,5vw,54px);
+      line-height: 1.15;
+      margin: 0 auto 18px;
+      max-width: 760px;
+    }
+    .hero p {
+      max-width: 600px;
+      margin: 0 auto 25px;
+      color: #d9e5f3;
+    }
+    .btn {
+      display: inline-block;
+      border: none;
+      background: #45d6a3;
+      color: #102235;
+      padding: 14px 22px;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 16px;
+    }
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 50px 20px;
+    }
+    h2 { font-size: 30px; line-height: 1.2; }
+    .subtitle { color: #657086; }
+    .panel {
+      background: white;
+      padding: 30px;
+      border-radius: 14px;
+      box-shadow: 0 6px 24px #16263c10;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      gap: 20px;
+    }
+    label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    input, select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #cbd3df;
+      border-radius: 7px;
+      font: inherit;
+      background: white;
+    }
+    .generate { margin-top: 24px; }
+    #results {
+      display: none;
+      margin-top: 30px;
+      padding: 24px;
+      background: #effaf5;
+      border: 1px solid #b5e9d3;
+      border-radius: 10px;
+    }
+    .workout {
+      background: white;
+      border-radius: 8px;
+      padding: 15px;
+      margin-top: 12px;
+    }
+    .workout h4 { margin: 0 0 6px; }
+    .workout p { margin: 0; }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 18px;
+      margin-top: 25px;
+    }
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .card h3 { margin-top: 0; }
+    footer {
+      background: #101b30;
+      color: #c8d2df;
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 13px;
+    }
+    @media(max-width:650px) {
+      .form-grid,.cards { grid-template-columns: 1fr; }
+      header { justify-content: center; }
+      nav a { margin: 0 8px; }
+      .panel { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">Sprint<span>Lab</span></div>
+    <nav>
+      <a href="#generator">Free Generator</a>
+      <a href="#resources">Resources</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Get Faster. Train Smarter.</h1>
+    <p>
+      Free sprint training tools, workouts, and resources
+      to help athletes improve their speed and acceleration.
+    </p>
+    <a href="#generator" class="btn">
+      Build My Free Training Plan
+    </a>
+  </section>
+
+  <main>
+    <section class="container" id="generator">
+      <h2>Free 40-Yard Dash Training Plan Generator</h2>
+      <p class="subtitle">
+        Answer a few questions to build your starter
+        sprint training schedule. No signup required.
+      </p>
+
+      <div class="panel">
+        <form id="planForm">
+          <div class="form-grid">
+            <div>
+              <label for="experience">Experience level</label>
+              <select id="experience" required>
+                <option value="beginner">Beginner</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="advanced">Advanced</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="currentTime">Current 40-yard time (seconds)</label>
+              <input id="currentTime" type="number"
+                min="3" max="15" step="0.01"
+                placeholder="Example: 5.20" required>
+            </div>
+
+            <div>
+              <label for="days">Sprint sessions per week</label>
+              <select id="days">
+                <option value="1">1 day</option>
+                <option value="2" selected>2 days</option>
+                <option value="3">3 days</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="focus">Main training goal</label>
+              <select id="focus">
+                <option value="acceleration">Acceleration</option>
+                <option value="speed">Maximum speed</option>
+                <option value="balanced" selected>
+                  Overall 40-yard performance
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <button type="submit" class="btn generate">
+            Generate My Plan
+          </button>
+        </form>
+
+        <div id="results" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="container" id="resources">
+      <h2>Explore Sprint Training</h2>
+      <p class="subtitle">
+        More free training guides and tools are coming soon.
+      </p>
+      <div class="cards">
+        <div class="card">
+          <h3>40-Yard Dash</h3>
+          <p>Improve your start, acceleration, and technique.</p>
+        </div>
+        <div class="card">
+          <h3>Sprint Workouts</h3>
+          <p>Build speed with structured training sessions.</p>
+        </div>
+        <div class="card">
+          <h3>Training Equipment</h3>
+          <p>Learn which tools can support your speed training.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>SprintLab | Free sprint training resources</p>
+    <p>
+      Training plans are general educational guidance,
+      not individualized coaching or medical advice.
+    </p>
+  </footer>
+
+  <script>
+    const form = document.getElementById("planForm");
+    const results = document.getElementById("results");
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const experience =
+        document.getElementById("experience").value;
+      const time =
+        Number(document.getElementById("currentTime").value);
+      const days =
+        Number(document.getElementById("days").value);
+      const focus =
+        document.getElementById("focus").value;
+
+      if (!Number.isFinite(time) || time < 3 || time > 15) {
+        alert("Please enter a valid 40-yard dash time.");
+        return;
+      }
+
+      const reps = {
+        beginner: 3,
+        intermediate: 4,
+        advanced: 5
+      }[experience];
+
+      const workouts = {
+        acceleration: {
+          title: "Acceleration Training",
+          detail: `${reps} x 10 yards, then ${reps} x 20 yards.
+            Use full recovery between sprints.`
+        },
+        speed: {
+          title: "Maximum Speed Training",
+          detail: `${reps} x flying 10 yards with a
+            gradual 20-yard buildup. Rest fully between reps.`
+        },
+        balanced: {
+          title: "40-Yard Dash Development",
+          detail: `${reps} x 10 yards, ${reps} x 20 yards,
+            then 2 x 40 yards. Rest fully between reps.`
+        }
+      };
+
+      const schedule = [
+        workouts[focus],
+        {
+          title: "Technique and Acceleration",
+          detail: `${reps} x 10-yard starts and
+            ${reps} x 20-yard accelerations.
+            Focus on smooth, powerful movement.`
+        },
+        {
+          title: "Speed Technique",
+          detail: `${reps} x flying 10 yards after a
+            controlled buildup. Stop if technique deteriorates.`
+        }
+      ];
+
+      let html = `
+        <h3>Your Starter Sprint Training Plan</h3>
+        <p><strong>Current 40-yard time:</strong>
+          ${time.toFixed(2)} seconds</p>
+        <p><strong>Experience:</strong> ${experience}</p>
+        <p><strong>Weekly sessions:</strong> ${days}</p>
+        <p>Complete a gradual warmup before every session.
+          Include mobility, running drills, and progressive
+          accelerations. Allow at least 48 hours between
+          demanding sprint sessions.</p>
+      `;
+
+      for (let i = 0; i < days; i++) {
+        const workout = schedule[i];
+        html += `
+          <div class="workout">
+            <h4>Session ${i + 1}: ${workout.title}</h4>
+            <p>${workout.detail}</p>
+          </div>
+        `;
+      }
+
+      html += `
+        <p><strong>Progression:</strong> Begin conservatively.
+          Increase workload gradually only when recovery
+          and technique remain good. Avoid all-out sprinting
+          when fatigued or injured.</p>
+        <p><small>This is a general starter template.
+          It does not predict a future dash time or account
+          for injury history, age, or other training.</small></p>
+      `;
+
+      results.innerHTML = html;
+      results.style.display = "block";
+      results.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    });
+  </script>
+</body>
+</html>
