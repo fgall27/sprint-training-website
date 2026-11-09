@@ -531,10 +531,12 @@ for (const week of weeklyProgression) {
     for (const key of exerciseKeys) {
       const exercise = sprintExercises[key];
 
-      const exerciseReps =
-        key === "fullDash"
-          ? (week.week === 4 ? 1 : 2)
-          : weeklyReps;
+
+const exerciseReps =
+  key === "fullDash"
+    ? (experience === "beginner" || week.week === 4 ? 1 : 2)
+    : weeklyReps;
+
 
       const distanceText = exercise.buildup
         ? `${exercise.buildup}-yard buildup + ${exercise.distance}-yard flying sprint`
