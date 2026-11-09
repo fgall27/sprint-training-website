@@ -135,6 +135,53 @@
       nav a { margin: 0 8px; }
       .panel { padding: 20px; }
     }
+    
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  header,
+  .hero,
+  nav,
+  #planForm,
+  #resources,
+  footer,
+  .print-actions,
+  #generator > h2,
+  #generator > .subtitle {
+    display: none !important;
+  }
+
+  .container,
+  .panel {
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+  }
+
+  #results {
+    display: block !important;
+    background: white !important;
+    border: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .workout {
+    border: 1px solid #ddd;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  @page {
+    size: auto;
+    margin: 15mm;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -569,6 +616,18 @@ const exerciseReps =
           It does not predict a future dash time or account
           for injury history, age, or other training.</small></p>
       `;
+
+html += `
+  <div class="print-actions">
+    <button
+      type="button"
+      class="btn"
+      onclick="window.print()"
+    >
+      Print / Save as PDF
+    </button>
+  </div>
+`;
 
       results.innerHTML = html;
       results.style.display = "block";
