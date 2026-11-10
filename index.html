@@ -135,6 +135,61 @@
       nav a { margin: 0 8px; }
       .panel { padding: 20px; }
     }
+
+.week-card {
+  background: #ffffff;
+  border: 1px solid #e0e7ef;
+  border-radius: 14px;
+  padding: 24px;
+  margin: 28px 0;
+  box-shadow: 0 4px 14px rgba(16, 27, 48, 0.05);
+}
+
+.week-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.week-header h3 {
+  margin: 0;
+  font-size: 22px;
+  color: #172033;
+}
+
+.week-badge {
+  background: #e1f8ee;
+  color: #17684c;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.week-description {
+  color: #657086;
+  margin: 12px 0 20px;
+}
+
+.week-card .workout {
+  background: #f5f7fb;
+  border-left: 3px solid #45d6a3;
+  box-shadow: none;
+}
+
+@media print {
+  .week-card {
+    box-shadow: none;
+    border: 1px solid #ddd;
+    break-inside: auto;
+  }
+
+  .week-card .workout {
+    background: white;
+  }
+}
     
 @media print {
   body {
@@ -562,10 +617,16 @@ for (const week of weeklyProgression) {
     Math.round(reps * week.multiplier)
   );
 
-  html += `
-    <h3>Week ${week.week}: ${week.title}</h3>
-    <p>${week.note}</p>
-  `;
+  
+html += `
+  <div class="week-card">
+    <div class="week-header">
+      <h3>Week ${week.week}: ${week.title}</h3>
+      <span class="week-badge">${days} Sessions</span>
+    </div>
+    <p class="week-description">${week.note}</p>
+`;
+
 
   for (let i = 0; i < days; i++) {
     const exerciseKeys = weekStructure.sessions[i];
@@ -601,9 +662,13 @@ const exerciseReps =
       `;
     }
 
+ 
     html += `</div>`;
   }
+
+  html += `</div>`;
 }
+
 
 
 
