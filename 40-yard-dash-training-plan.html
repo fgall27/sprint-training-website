@@ -1,0 +1,707 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-site-verification" content="eZE3_SE3ikSPUKQ9h1elyPxifG8QZDWL4XILy2J74ho" />
+  <meta name="description" content="Free sprint training tools and personalized 40-yard dash workout plans.">
+  <title>SprintLab | Train Faster</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: #172033;
+      background: #f5f7fb;
+      line-height: 1.6;
+    }
+    header {
+      background: #101b30;
+      color: white;
+      padding: 18px 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .logo { font-size: 24px; font-weight: 800; }
+    .logo span { color: #58d9ac; }
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 18px;
+      font-size: 14px;
+    }
+    .hero {
+      background: linear-gradient(135deg,#101b30,#24446a);
+      color: white;
+      padding: 75px 20px;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: clamp(32px,5vw,54px);
+      line-height: 1.15;
+      margin: 0 auto 18px;
+      max-width: 760px;
+    }
+    .hero p {
+      max-width: 600px;
+      margin: 0 auto 25px;
+      color: #d9e5f3;
+    }
+    .btn {
+      display: inline-block;
+      border: none;
+      background: #45d6a3;
+      color: #102235;
+      padding: 14px 22px;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 16px;
+    }
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 50px 20px;
+    }
+    h2 { font-size: 30px; line-height: 1.2; }
+    .subtitle { color: #657086; }
+    .panel {
+      background: white;
+      padding: 30px;
+      border-radius: 14px;
+      box-shadow: 0 6px 24px #16263c10;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      gap: 20px;
+    }
+    label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    input, select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #cbd3df;
+      border-radius: 7px;
+      font: inherit;
+      background: white;
+    }
+    .generate { margin-top: 24px; }
+    #results {
+      display: none;
+      margin-top: 30px;
+      padding: 24px;
+      background: #effaf5;
+      border: 1px solid #b5e9d3;
+      border-radius: 10px;
+    }
+    .workout {
+      background: white;
+      border-radius: 8px;
+      padding: 15px;
+      margin-top: 12px;
+    }
+    .workout h4 { margin: 0 0 6px; }
+    .workout p { margin: 0; }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 18px;
+      margin-top: 25px;
+    }
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .card h3 { margin-top: 0; }
+    footer {
+      background: #101b30;
+      color: #c8d2df;
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 13px;
+    }
+    @media(max-width:650px) {
+      .form-grid,.cards { grid-template-columns: 1fr; }
+      header { justify-content: center; }
+      nav a { margin: 0 8px; }
+      .panel { padding: 20px; }
+    }
+
+.week-card {
+  background: #ffffff;
+  border: 1px solid #e0e7ef;
+  border-radius: 14px;
+  padding: 24px;
+  margin: 28px 0;
+  box-shadow: 0 4px 14px rgba(16, 27, 48, 0.05);
+}
+
+.week-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.week-header h3 {
+  margin: 0;
+  font-size: 22px;
+  color: #172033;
+}
+
+.week-badge {
+  background: #e1f8ee;
+  color: #17684c;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.week-description {
+  color: #657086;
+  margin: 12px 0 20px;
+}
+
+.week-card .workout {
+  background: #f5f7fb;
+  border-left: 3px solid #45d6a3;
+  box-shadow: none;
+}
+
+@media print {
+  .week-card {
+    box-shadow: none;
+    border: 1px solid #ddd;
+    break-inside: auto;
+  }
+
+  .week-card .workout {
+    background: white;
+  }
+}
+    
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  header,
+  .hero,
+  nav,
+  #planForm,
+  #resources,
+  footer,
+  .print-actions,
+  #generator > h2,
+  #generator > .subtitle {
+    display: none !important;
+  }
+
+  .container,
+  .panel {
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+  }
+
+  #results {
+    display: block !important;
+    background: white !important;
+    border: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .workout {
+    border: 1px solid #ddd;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  @page {
+    size: auto;
+    margin: 15mm;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">Sprint<span>Lab</span></div>
+    <nav>
+      <a href="#generator">Free Generator</a>
+      <a href="#resources">Resources</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Get Faster. Train Smarter.</h1>
+    <p>
+      Free sprint training tools, workouts, and resources
+      to help athletes improve their speed and acceleration.
+    </p>
+    <a href="#generator" class="btn">
+      Build My Free Training Plan
+    </a>
+  </section>
+
+  <main>
+    <section class="container" id="generator">
+      <h2>Free 40-Yard Dash Training Plan Generator</h2>
+      <p class="subtitle">
+        Answer a few questions to build your starter
+        sprint training schedule. No signup required.
+      </p>
+
+      <div class="panel">
+        <form id="planForm">
+          <div class="form-grid">
+            <div>
+              <label for="experience">Experience level</label>
+              <select id="experience" required>
+                <option value="beginner">Beginner</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="advanced">Advanced</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="currentTime">Current 40-yard time (seconds)</label>
+              <input id="currentTime" type="number"
+                min="3" max="15" step="0.01"
+                placeholder="Example: 5.20" required>
+            </div>
+
+            <div>
+              <label for="days">Sprint sessions per week</label>
+              <select id="days">
+                <option value="1">1 day</option>
+                <option value="2" selected>2 days</option>
+                <option value="3">3 days</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="focus">Main training goal</label>
+              <select id="focus">
+                <option value="acceleration">Acceleration</option>
+                <option value="speed">Maximum speed</option>
+                <option value="balanced" selected>
+                  Overall 40-yard performance
+                </option>
+              </select>
+            </div> 
+            
+<div>
+  <label for="equipment">Available equipment</label>
+  <select id="equipment">
+    <option value="none">No equipment</option>
+    <option value="cones">Cones or markers</option>
+    <option value="gym">Gym and sprint equipment</option>
+  </select>
+</div>
+
+<div>
+  <label for="otherTraining">Other weekly training</label>
+  <select id="otherTraining">
+    <option value="none">No other training</option>
+    <option value="lifting">I also lift weights</option>
+    <option value="sports">I play a sport</option>
+    <option value="both">I lift weights and play sports</option>
+  </select>
+</div>
+
+          </div>
+
+          <button type="submit" class="btn generate">
+            Generate My Plan
+          </button>
+        </form>
+
+        <div id="results" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="container" id="resources">
+      <h2>Explore Sprint Training</h2>
+      <p class="subtitle">
+        More free training guides and tools are coming soon.
+      </p>
+      <div class="cards">
+        <div class="card">
+          <h3>40-Yard Dash</h3>
+          <p>Improve your start, acceleration, and technique.</p>
+        </div>
+        <div class="card">
+          <h3>Sprint Workouts</h3>
+          <p>Build speed with structured training sessions.</p>
+        </div>
+        <div class="card">
+          <h3>Training Equipment</h3>
+          <p>Learn which tools can support your speed training.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>SprintLab | Free sprint training resources</p>
+    <p>
+      Training plans are general educational guidance,
+      not individualized coaching or medical advice.
+    </p>
+  </footer>
+
+  <script>
+    const form = document.getElementById("planForm");
+    const results = document.getElementById("results");
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const experience =
+        document.getElementById("experience").value;
+      const time =
+        Number(document.getElementById("currentTime").value);
+      const days =
+        Number(document.getElementById("days").value);
+      const focus =
+        document.getElementById("focus").value; 
+      
+const equipment =
+  document.getElementById("equipment").value;
+
+const otherTraining =
+  document.getElementById("otherTraining").value;
+
+
+      if (!Number.isFinite(time) || time < 3 || time > 15) {
+        alert("Please enter a valid 40-yard dash time.");
+        return;
+      }
+
+     
+const baseReps = {
+  beginner: 3,
+  intermediate: 4,
+  advanced: 5
+}[experience];
+
+const hasOtherTraining = otherTraining !== "none";
+
+const reps = hasOtherTraining
+  ? Math.max(2, baseReps - 1)
+  : baseReps;
+
+
+
+const sprintExercises = {
+  shortStart: {
+    name: "Short Acceleration Starts",
+    distance: 10,
+    rest: "90–120 seconds",
+    tip: "Focus on powerful first steps and a gradual rise."
+  },
+
+  acceleration: {
+    name: "Acceleration Sprints",
+    distance: 20,
+    rest: "2–3 minutes",
+    tip: "Build speed smoothly while maintaining good posture."
+  },
+
+  flyingSprint: {
+    name: "Flying Sprints",
+    distance: 10,
+    buildup: 20,
+    rest: "3–5 minutes",
+    tip: "Accelerate gradually, then run fast with relaxed shoulders."
+  },
+
+  fullDash: {
+    name: "40-Yard Dash Practice",
+    distance: 40,
+    rest: "4–5 minutes",
+    tip: "Focus on a consistent start and smooth acceleration."
+  }
+};
+     
+const workouts = {
+  acceleration: {
+    title: "Acceleration Training",
+    detail: `${reps} x 10-yard starts (rest 90–120 seconds),
+      then ${reps} x 20-yard accelerations
+      (rest 2–3 minutes).
+      Focus on powerful first steps and gradual
+      body-position changes.`
+  },
+
+  speed: {
+    title: "Maximum Speed Training",
+    detail: `${reps} x flying 10 yards with a
+      gradual 20-yard buildup (rest 3–5 minutes).
+      Focus on relaxed shoulders, upright posture,
+      and smooth, fast strides.`
+  },
+
+  balanced: {
+    title: "40-Yard Dash Development",
+    detail: `${reps} x 10-yard starts (rest 90–120 seconds),
+      ${reps} x 20-yard accelerations (rest 2–3 minutes),
+      then 2 x 40-yard runs (rest 4–5 minutes).
+      Focus on acceleration and maintaining
+      good technique throughout each sprint.`
+  }
+};
+
+
+      const schedule = [
+        workouts[focus],
+        
+{
+  title: "Technique and Acceleration",
+  detail: `${reps} x 10-yard starts
+    (rest 90–120 seconds),
+    then ${reps} x 20-yard accelerations
+    (rest 2–3 minutes).
+    Focus on powerful first steps,
+    controlled forward lean, and
+    smooth acceleration.`
+},
+
+       
+{
+  title: "Speed Technique",
+  detail: `${reps} x flying 10 yards after a
+    gradual 20-yard buildup
+    (rest 3–5 minutes between repetitions).
+    Focus on relaxed shoulders,
+    upright running posture, and
+    smooth, fast strides.
+    Stop if technique deteriorates.`
+}
+      ];
+      
+const weeklyProgression = [
+  {
+    week: 1,
+    title: "Technique and Foundation",
+    multiplier: 0.75,
+    note: "Start conservatively. Focus on smooth acceleration and consistent technique."
+  },
+  {
+    week: 2,
+    title: "Acceleration Development",
+    multiplier: 1,
+    note: "Maintain good mechanics and allow full recovery between repetitions."
+  },
+  {
+    week: 3,
+    title: "Speed Development",
+    multiplier: 1,
+    note: "Focus on sprint quality rather than adding unnecessary volume."
+  },
+  {
+    week: 4,
+    title: "Recovery and Reassessment",
+    multiplier: 0.5,
+    note: "Reduce training volume. If fully recovered, reassess your 40-yard time."
+  }
+];
+
+const weeklyWorkoutStructure = [
+  {
+    week: 1,
+   
+sessions: [
+  ["shortStart", "acceleration"],
+  ["shortStart", "flyingSprint"],
+  ["acceleration", "flyingSprint"]
+]
+
+  },
+  {
+    week: 2,
+    sessions: [
+      ["shortStart", "acceleration", "fullDash"],
+      ["shortStart", "acceleration"],
+      ["flyingSprint"]
+    ]
+  },
+  {
+    week: 3,
+    sessions: [
+      ["acceleration", "fullDash"],
+      ["shortStart", "acceleration"],
+      ["flyingSprint", "acceleration"]
+    ]
+  },
+  {
+    week: 4,
+    
+sessions: [
+  ["shortStart", "acceleration"],
+  ["shortStart"],
+  ["acceleration"]
+]
+
+  }
+];
+
+
+const equipmentTips = {
+  none: "No equipment needed. Use landmarks or measured distances to mark your sprint starts and finishes.",
+
+  cones: "Use cones or markers to set up 10-yard, 20-yard, and 40-yard sprint distances. Keep the distances consistent between sessions.",
+
+  gym: "Use cones to mark sprint distances. If you already strength train, coordinate lower-body lifting with sprint sessions and allow adequate recovery."
+};
+
+const trainingTips = {
+  none: "You have no additional training commitments selected. Start with the prescribed sprint sessions and monitor recovery.",
+
+  lifting: "Schedule demanding sprint work before heavy lower-body lifting when performed on the same day. Avoid adding excessive leg volume.",
+
+  sports: "Account for practices and games when scheduling sprint sessions. Reduce sprint volume during demanding sports weeks.",
+
+  both: "Because you lift weights and play sports, prioritize recovery. Avoid stacking additional hard sprint sessions onto an already demanding week."
+};
+
+      let html = `
+        <h3>Your Starter Sprint Training Plan</h3>
+        <p><strong>Current 40-yard time:</strong>
+          ${time.toFixed(2)} seconds</p>
+        <p><strong>Experience:</strong> ${experience}</p>
+        <p><strong>Weekly sessions:</strong> ${days}</p>
+        <p>Complete a gradual warmup before every session.
+          Include mobility, running drills, and progressive
+          accelerations. Allow at least 48 hours between
+          demanding sprint sessions.</p>
+      `;
+      
+html += `
+  <div class="workout">
+    <h4>Equipment Recommendations</h4>
+    <p>${equipmentTips[equipment]}</p>
+  </div>
+
+  <div class="workout">
+    <h4>Training and Recovery Recommendations</h4>
+    <p>${trainingTips[otherTraining]}</p>
+  </div>
+`;
+
+
+
+for (const week of weeklyProgression) {
+  const weekStructure = weeklyWorkoutStructure.find(
+    (item) => item.week === week.week
+  );
+
+  const weeklyReps = Math.max(
+    2,
+    Math.round(reps * week.multiplier)
+  );
+
+  
+html += `
+  <div class="week-card">
+    <div class="week-header">
+      <h3>Week ${week.week}: ${week.title}</h3>
+      <span class="week-badge">${days} Sessions</span>
+    </div>
+    <p class="week-description">${week.note}</p>
+`;
+
+
+  for (let i = 0; i < days; i++) {
+    const exerciseKeys = weekStructure.sessions[i];
+
+    html += `
+      <div class="workout">
+        <h4>Session ${i + 1}</h4>
+    `;
+
+    for (const key of exerciseKeys) {
+      const exercise = sprintExercises[key];
+
+
+const exerciseReps =
+  key === "fullDash"
+    ? (experience === "beginner" || week.week === 4 ? 1 : 2)
+    : weeklyReps;
+
+
+      const distanceText = exercise.buildup
+        ? `${exercise.buildup}-yard buildup + ${exercise.distance}-yard flying sprint`
+        : `${exercise.distance}-yard sprint`;
+
+      html += `
+        <p>
+          <strong>${exercise.name}</strong>
+          — ${exerciseReps} x ${distanceText}
+        </p>
+        <p>
+          Rest: ${exercise.rest}.
+          ${exercise.tip}
+        </p>
+      `;
+    }
+
+ 
+    html += `</div>`;
+  }
+
+  html += `</div>`;
+}
+
+
+
+
+      html += `
+        <p><strong>Progression:</strong> Begin conservatively.
+          Increase workload gradually only when recovery
+          and technique remain good. Avoid all-out sprinting
+          when fatigued or injured.</p>
+        <p><small>This is a general starter template.
+          It does not predict a future dash time or account
+          for injury history, age, or other training.</small></p>
+      `;
+
+html += `
+  <div class="print-actions">
+    <button
+      type="button"
+      class="btn"
+      onclick="window.print()"
+    >
+      Print / Save as PDF
+    </button>
+  </div>
+`;
+
+      results.innerHTML = html;
+      results.style.display = "block";
+      results.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    });
+  </script>
+</body>
+</html>
