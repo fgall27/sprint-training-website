@@ -383,7 +383,7 @@
         document.getElementById("experience").value;
       const time =
         Number(document.getElementById("currentTime").value);
-      const days =
+      let days =
         Number(document.getElementById("days").value);
       const focus =
         document.getElementById("focus").value; 
@@ -393,6 +393,15 @@ const equipment =
 
 const otherTraining =
   document.getElementById("otherTraining").value;
+      
+if (
+  experience === "beginner" &&
+  otherTraining === "both" &&
+  days > 2
+) {
+  days = 2;
+}
+
 
 
       if (!Number.isFinite(time) || time < 3 || time > 15) {
@@ -613,6 +622,28 @@ html += `
 
 
 
+if (
+  experience === "beginner" &&
+  otherTraining === "both" &&
+  Number(document.getElementById("days").value) > 2
+) {
+  html += `
+    <div class="workout">
+      <h4>Recovery Adjustment</h4>
+      <p>
+        You requested 3 sprint sessions per week.
+        Because you're a beginner who also lifts
+        weights and plays sports, SprintLab has
+        reduced your plan to 2 weekly sessions.
+
+        This helps limit additional training stress.
+        Adjust your schedule around practices,
+        games, and recovery needs.
+      </p>
+    </div>
+  `;
+}
+
 for (const week of weeklyProgression) {
   const weekStructure = weeklyWorkoutStructure.find(
     (item) => item.week === week.week
@@ -635,7 +666,14 @@ html += `
 
 
   for (let i = 0; i < days; i++) {
-    const exerciseKeys = weekStructure.sessions[i];
+   
+const exerciseKeys =
+  experience === "beginner" && week.week === 1
+    ? weekStructure.sessions[i].filter(
+        key => key !== "flyingSprint"
+      )
+    : weekStructure.sessions[i];
+
 
     html += `
       <div class="workout">
