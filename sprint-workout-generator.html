@@ -1,0 +1,620 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Free Sprint Workout Generator | SprintLab</title>
+
+  <meta name="description" content="Build a free sprint workout plan based on your fitness goals, experience, and schedule. Get faster, improve fitness, and train smarter with SprintLab.">
+
+  <link rel="canonical" href="https://fgall27.github.io/sprint-training-website/sprint-workout-generator.html">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      color: #172033;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #101b30;
+      padding: 20px 7%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .logo {
+      color: white;
+      font-size: 25px;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .logo span {
+      color: #45d6a3;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 18px;
+      font-size: 14px;
+    }
+
+    nav a:hover {
+      color: #45d6a3;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #101b30, #24446a);
+      color: white;
+      text-align: center;
+      padding: 65px 20px;
+    }
+
+    .hero h1 {
+      font-size: clamp(32px, 5vw, 46px);
+      line-height: 1.2;
+      margin: 0 auto 20px;
+      max-width: 850px;
+    }
+
+    .hero p {
+      color: #d9e5f3;
+      font-size: 18px;
+      max-width: 680px;
+      margin: auto;
+    }
+
+    .eyebrow {
+      color: #58d9ac;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 15px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .panel {
+      background: white;
+      padding: 35px;
+      border-radius: 14px;
+      box-shadow: 0 6px 24px rgba(16, 27, 48, 0.06);
+    }
+
+    h2 {
+      font-size: 28px;
+      margin-top: 0;
+    }
+
+    .subtitle {
+      color: #56647a;
+      margin-bottom: 28px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    label {
+      font-weight: 700;
+      font-size: 15px;
+    }
+
+    select {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      background: white;
+      color: #172033;
+      font-size: 16px;
+    }
+
+    select:focus {
+      outline: 2px solid #45d6a3;
+      outline-offset: 2px;
+    }
+
+    .helper {
+      color: #64748b;
+      font-size: 13px;
+    }
+
+    .btn {
+      display: inline-block;
+      background: #45d6a3;
+      color: #102235;
+      padding: 15px 25px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 28px;
+    }
+
+    .btn:hover {
+      background: #70e5bd;
+    }
+
+    .note {
+      background: #effaf5;
+      border-left: 4px solid #45d6a3;
+      border-radius: 8px;
+      padding: 18px 22px;
+      margin-top: 28px;
+    }
+
+    .results {
+      background: #effaf5;
+      padding: 25px;
+      border-radius: 12px;
+      margin-top: 30px;
+    }
+
+    .results[hidden] {
+      display: none;
+    }
+
+    .workout {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      margin: 15px 0;
+    }
+
+    footer {
+      background: #101b30;
+      color: #c8d2df;
+      text-align: center;
+      padding: 30px 20px;
+      margin-top: 50px;
+      font-size: 14px;
+    }
+
+    footer a {
+      color: #58d9ac;
+    }
+
+    @media (max-width: 650px) {
+      header {
+        justify-content: center;
+      }
+
+      nav {
+        text-align: center;
+      }
+
+      nav a {
+        display: inline-block;
+        margin: 5px 7px;
+      }
+
+      .hero {
+        padding: 45px 18px;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .panel {
+        padding: 23px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <a href="index.html" class="logo">
+      Sprint<span>Lab</span>
+    </a>
+
+    <nav aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="40-yard-dash-training-plan.html">
+        40-Yard Dash Generator
+      </a>
+      <a href="index.html#resources">Resources</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="eyebrow">Free Sprint Training Tool</div>
+
+    <h1>
+      Free Sprint Workout Generator
+    </h1>
+
+    <p>
+      Get faster. Get fitter. Become more athletic.
+      Build a sprint training plan based on your
+      experience, goals, and available time.
+    </p>
+  </section>
+
+  <main class="container">
+
+    <section class="panel">
+      <h2>Build Your Sprint Workout</h2>
+
+      <p class="subtitle">
+        Answer a few questions and SprintLab
+        will help you create a structured
+        sprint training routine.
+      </p>
+
+      <form id="sprintForm">
+
+        <div class="form-grid">
+
+          <div class="field">
+            <label for="goal">What's your main goal?</label>
+
+            <select id="goal" required>
+              <option value="speed">
+                Get faster and more explosive
+              </option>
+              <option value="fitness">
+                Improve fitness through sprinting
+              </option>
+              <option value="both">
+                Improve speed and fitness
+              </option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="experience">
+              What's your sprinting experience?
+            </label>
+
+            <select id="experience" required>
+              <option value="new">
+                Completely new to sprinting
+              </option>
+              <option value="some">
+                Some sprint training experience
+              </option>
+              <option value="experienced">
+                Experienced sprinter
+              </option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="readiness">
+              What's your current running fitness?
+            </label>
+
+            <select id="readiness" required>
+              <option value="starting">
+                New to regular running
+              </option>
+              <option value="active">
+                Comfortable running regularly
+              </option>
+              <option value="trained">
+                Already perform faster running
+              </option>
+            </select>
+
+            <span class="helper">
+              This helps us choose an appropriate starting intensity.
+            </span>
+          </div>
+
+          <div class="field">
+            <label for="days">
+              Preferred sprint sessions per week
+            </label>
+
+            <select id="days" required>
+              <option value="1">1 day</option>
+              <option value="2" selected>2 days</option>
+              <option value="3">3 days</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="duration">
+              Time available per session
+            </label>
+
+            <select id="duration" required>
+              <option value="20">20 minutes</option>
+              <option value="30" selected>30 minutes</option>
+              <option value="45">45 minutes</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="otherTraining">
+              Other weekly training
+            </label>
+
+            <select id="otherTraining" required>
+              <option value="none">
+                No other demanding training
+              </option>
+              <option value="lifting">
+                I lift weights
+              </option>
+              <option value="sports">
+                I play sports
+              </option>
+              <option value="both">
+                I lift weights and play sports
+              </option>
+            </select>
+          </div>
+
+        </div>
+
+        <button class="btn" type="submit">
+          Generate My Sprint Workout
+        </button>
+
+      </form>
+
+      <div class="note">
+        <strong>Train according to your readiness.</strong>
+        If you're new to sprinting, begin with
+        controlled running and acceleration technique
+        rather than immediate maximum-effort sprints.
+        Allow sufficient recovery between demanding
+        sessions. Training plans are general guidance,
+        not individualized medical or coaching advice.
+      </div>
+
+      <div
+        id="results"
+        class="results"
+        aria-live="polite"
+        hidden
+      ></div>
+
+    </section>
+
+  </main>
+
+  <footer>
+    <p>
+      SprintLab | Get Faster. Train Smarter.
+    </p>
+
+    <p>
+      <a href="index.html">Home</a>
+      |
+      <a href="40-yard-dash-training-plan.html">
+        40-Yard Dash Generator
+      </a>
+    </p>
+
+    <p>
+      © 2026 SprintLab.
+      Educational sprint training resources.
+    </p>
+  </footer>
+
+<script>
+  const form = document.getElementById("sprintForm");
+  const results = document.getElementById("results");
+
+  form.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const goal = document.getElementById("goal").value;
+    const experience = document.getElementById("experience").value;
+    const readiness = document.getElementById("readiness").value;
+    const requestedDays = Number(document.getElementById("days").value);
+    const duration = Number(document.getElementById("duration").value);
+    const otherTraining = document.getElementById("otherTraining").value;
+
+    const foundation = readiness === "starting";
+    const beginner = experience === "new" || foundation;
+
+    const advanced =
+      experience === "experienced" &&
+      readiness === "trained";
+
+    let days = requestedDays;
+
+    // Limit additional speed sessions when recovery demands are high.
+    if ((beginner || otherTraining === "both") && days > 2) {
+      days = 2;
+    }
+
+    const speedReps = duration === 20 ? 2 : duration === 45 ? 4 : 3;
+    const fitnessReps = duration === 20 ? 3 : duration === 45 ? 5 : 4;
+
+    const goalNames = {
+      speed: "Speed and Explosiveness",
+      fitness: "Fitness Through Sprint Training",
+      both: "Speed and Fitness"
+    };
+
+    const warmup = duration === 20
+      ? "6-8 minutes of progressive movement and dynamic mobility."
+      : "8-12 minutes of progressive movement, dynamic mobility, and easy running pickups when appropriate.";
+
+    let html = `
+      <h2>Your SprintLab Starter Plan</h2>
+      <p><strong>Goal:</strong> ${goalNames[goal]}</p>
+      <p><strong>Weekly sessions:</strong> ${days}</p>
+      <p><strong>Time available:</strong> ${duration} minutes per session</p>
+    `;
+
+    if (days < requestedDays) {
+      html += `
+        <div class="workout">
+          <h3>Recovery Adjustment</h3>
+          <p>
+            You requested ${requestedDays} weekly sessions.
+            SprintLab has reduced your starting plan to
+            ${days} sessions based on your experience,
+            running readiness, or other training demands.
+          </p>
+        </div>
+      `;
+    }
+
+    if (foundation) {
+      html += `
+        <div class="workout">
+          <h3>Build Your Running Readiness First</h3>
+          <p>
+            Because you're new to regular running,
+            your first sessions focus on sprint mechanics,
+            coordinated movement, and gradually preparing
+            for faster running. These are not all-out
+            sprint workouts.
+          </p>
+        </div>
+      `;
+    }
+
+    if (otherTraining !== "none") {
+      html += `
+        <div class="workout">
+          <h3>Coordinate Your Training</h3>
+          <p>
+            Account for your existing weightlifting,
+            sports, and recovery needs. Avoid adding
+            demanding sprint sessions to days when
+            you're already heavily fatigued.
+          </p>
+        </div>
+      `;
+    }
+
+    for (let i = 0; i < days; i++) {
+      const fitnessFocus =
+        goal === "fitness" ||
+        (goal === "both" && i % 2 === 1);
+
+      let sessionTitle;
+      let workoutDetails;
+      let recovery;
+
+      if (foundation) {
+        sessionTitle = i === 0
+          ? "Movement and Sprint Mechanics"
+          : "Coordination and Running Preparation";
+
+        workoutDetails = i === 0
+          ? "2 x 10-yard A-marches, then 3 x 10-yard controlled marching-to-brisk-movement drills."
+          : "2 x 10-yard coordinated marching drills, then 3 x 10-yard gentle progressive movement drills. Introduce relaxed running only when easy jogging feels comfortable.";
+
+        recovery = "Walk back and recover fully between drills. No maximum-effort sprinting.";
+
+      } else if (beginner) {
+        sessionTitle = fitnessFocus
+          ? "Controlled Speed Intervals"
+          : "Introductory Acceleration Training";
+
+        workoutDetails = fitnessFocus
+          ? `${fitnessReps} x 10-second controlled faster-running efforts, with 90-120 seconds of walking recovery. Keep the speed comfortably below maximum.`
+          : `2 x 10-yard A-marches, followed by ${speedReps} x 10-yard gradual accelerations at a relaxed, submaximal effort.`;
+
+        recovery = "Allow roughly 90-120 seconds between efforts, or longer as needed. Maintain comfortable technique.";
+
+      } else if (fitnessFocus) {
+        sessionTitle = "Sprint-Focused Conditioning";
+
+        workoutDetails = advanced
+          ? `${fitnessReps} x 15-second fast but controlled running intervals, with 2 minutes of easy walking recovery. Avoid all-out efforts.`
+          : `${fitnessReps} x 12-second controlled faster-running intervals, with 90-120 seconds of walking recovery.`;
+
+        recovery = "Adjust intensity or reduce repetitions if movement quality deteriorates.";
+
+      } else {
+        sessionTitle = "Acceleration and Speed Development";
+
+        workoutDetails = advanced
+          ? `${speedReps} x 10-yard accelerations, followed by ${speedReps} x 20-yard quality sprints. Build speed progressively rather than forcing maximum effort.`
+          : `${speedReps} x 10-yard controlled starts, followed by ${speedReps} x 20-yard progressive accelerations.`;
+
+        recovery = "Allow around 2-3 minutes between shorter efforts and 3-5 minutes between faster repetitions when needed.";
+      }
+
+      html += `
+        <div class="workout">
+          <h3>Session ${i + 1}: ${sessionTitle}</h3>
+
+          <p><strong>Warmup:</strong> ${warmup}</p>
+
+          <p><strong>Main workout:</strong> ${workoutDetails}</p>
+
+          <p><strong>Recovery:</strong> ${recovery}</p>
+
+          <p><strong>Cooldown:</strong>
+            5 minutes of easy walking and gradual recovery.
+          </p>
+        </div>
+      `;
+    }
+
+    html += `
+      <div class="workout">
+        <h3>Progression and Safety</h3>
+        <p>
+          Start conservatively and prioritize technique.
+          Allow at least one recovery day between
+          demanding sprint sessions. Progress speed
+          and volume gradually as your body adapts.
+        </p>
+        <p>
+          If you experience sharp pain, stop the activity.
+          Workout durations are approximate; reduce
+          repetitions instead of skipping the warmup
+          or rushing recovery.
+        </p>
+        <p>
+          This is a general introductory template,
+          not individualized medical advice or
+          a guarantee of improved sprint performance.
+        </p>
+      </div>
+    `;
+
+    results.innerHTML = html;
+    results.hidden = false;
+
+    results.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  });
+</script>
+
+</body>
+</html>
