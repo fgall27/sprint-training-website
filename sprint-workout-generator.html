@@ -566,6 +566,41 @@
         recovery = "Allow around 2-3 minutes between shorter efforts and 3-5 minutes between faster repetitions when needed.";
       }
 
+if (advanced && goal === "speed" && days === 3) {
+  if (i === 0) {
+    sessionTitle = "Acceleration Development";
+
+    workoutDetails =
+      `${speedReps} x 10-yard starts, followed by ` +
+      `${speedReps} x 20-yard progressive accelerations. ` +
+      `Prioritize high-quality repetitions.`;
+
+    recovery = "Rest 2-4 minutes between faster efforts.";
+
+  } else if (i === 1) {
+    sessionTitle = "Upright Sprint Mechanics";
+
+    workoutDetails =
+      "2 x 15-yard A-marches, followed by " +
+      "3 x (20-yard buildup + 10-yard fast, relaxed run). " +
+      "Avoid straining at maximum effort.";
+
+    recovery = "Rest 3-5 minutes between fast runs.";
+
+  } else {
+    sessionTitle = "Lower-Intensity Technique Day";
+
+    workoutDetails =
+      "2 x 15-yard A-marches, followed by " +
+      "3 x 20-yard controlled build-ups at a " +
+      "comfortable, submaximal pace.";
+
+    recovery =
+      "Walk back and recover fully. Keep this " +
+      "session easier than the first two.";
+  }
+}
+
       html += `
         <div class="workout">
           <h3>Session ${i + 1}: ${sessionTitle}</h3>
