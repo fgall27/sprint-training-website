@@ -601,6 +601,36 @@ if (advanced && goal === "speed" && days === 3) {
   }
 }
 
+if (goal === "fitness" && days === 3 && !beginner) {
+
+  if (i === 1) {
+    sessionTitle = "Easy Sprint Mechanics and Movement";
+
+    workoutDetails =
+      "2 x 10-yard A-marches, followed by " +
+      "3 x 20-yard relaxed progressive build-ups. " +
+      "Keep the effort comfortably below sprint speed.";
+
+    recovery =
+      "Walk back between repetitions. " +
+      "This is a lighter technique session.";
+
+  } else if (i === 2) {
+    sessionTitle = "Controlled Sprint Conditioning";
+
+    workoutDetails =
+      `${Math.max(2, fitnessReps - 1)} x 10-second ` +
+      "controlled faster-running intervals, " +
+      "with 2 minutes of walking recovery. " +
+      "Avoid all-out efforts.";
+
+    recovery =
+      "Allow sufficient recovery and reduce the " +
+      "workload if fatigued. Space the harder " +
+      "sessions at least 48 hours apart.";
+  }
+}
+
       html += `
         <div class="workout">
           <h3>Session ${i + 1}: ${sessionTitle}</h3>
