@@ -228,6 +228,48 @@
         padding: 23px;
       }
     }
+    
+@media print {
+  body {
+    background: white;
+    color: #172033;
+  }
+
+  header,
+  .hero,
+  footer,
+  #sprintForm,
+  .panel > h2,
+  .panel > .subtitle,
+  .panel > .note,
+  .print-btn {
+    display: none !important;
+  }
+
+  .container {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .panel {
+    box-shadow: none;
+    padding: 0;
+  }
+
+  .results {
+    background: white;
+    margin: 0;
+    padding: 0;
+  }
+
+  .workout {
+    border: 1px solid #ddd;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}
+
   </style>
 </head>
 
@@ -670,6 +712,16 @@ if (goal === "fitness" && days === 3 && !beginner) {
         </p>
       </div>
     `;
+
+html += `
+  <button
+    type="button"
+    class="btn print-btn"
+    onclick="window.print()"
+  >
+    Print / Save as PDF
+  </button>
+`;
 
     results.innerHTML = html;
     results.hidden = false;
